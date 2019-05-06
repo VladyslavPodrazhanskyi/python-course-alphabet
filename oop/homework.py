@@ -23,7 +23,7 @@ class Cat:
 
     * Implement method run it receives hours value
       Calculate run km per hours remember that you have average_speed value
-      Than if your cat run more or eq than 25 _reduce_saturation_level with value 2
+      Than if your cat run less or eq than 25 _reduce_saturation_level with value 2
       if it runs between 25(not including) and 50(including) than _reduce_saturation_level with value 5
       if it runs between 50(not including) and 100(including) than _reduce_saturation_level with value 15
       if it runs between 100(not including) and 200(including) than _reduce_saturation_level with value 25
@@ -73,7 +73,7 @@ class Cheetah:
 
     * Redefine method _set_average_speed
       if age less or eq 5 return 90
-      if age between 5 and 15(including) return 90
+      if age between 5 and 15(including) return 75
       if age grosser 15(not including) return 40
 
     """
@@ -175,7 +175,7 @@ class House:
     """
     !!!! DON'T WRITE NEW METHODS TO THIS CLASS EXCEPT FOR THOSE LISTED BELOW !!!
 
-    * Add super private variable __walls and its value will be empty list
+    * Add super private variable __walls and its value will be empty list  методы класса!!!
     * Add super private variable __windows and its value will be empty list
     * Add super private variable __roof and its value will be None
     * Add super private variable __door and its value will be None
