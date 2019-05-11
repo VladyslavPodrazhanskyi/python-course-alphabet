@@ -123,7 +123,7 @@ class Cesar:
     def __init__(self, name:str):
         self.name = name
         self.garages = []
-        self.register_id = uuid.uuid4()
+        self.register_id = str(uuid.uuid4())
 
 
     def max_garages(self):

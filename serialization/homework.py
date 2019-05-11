@@ -150,7 +150,7 @@ print(f"Type of restored garage: {type(garage_from_file)}")
 print(garage_from_file)
 
 
-# # 1.3. class Cesar:
+# 1.3. class Cesar:
 
 # Колекціонер має наступні характеристики
 #     name - значення типу str. Його ім'я
@@ -179,7 +179,7 @@ test_cesar = classes.Cesar("Vladislav")
 print(type(test_cesar))
 
 # Conversion test_cesar to string:
-cesar_str_cesar = json.dumps(test_cesar, default=to_json_cesar)
+cesar_str_json = json.dumps(test_cesar, default=to_json_cesar)
 print(cesar_str_json)
 
 # Create cesar object from string:
