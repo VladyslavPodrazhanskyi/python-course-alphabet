@@ -204,7 +204,7 @@ cesar_from_string = json.loads(cesar_str_json, object_hook=from_json_cesar)
 print(f"Type of restored Cesar: {type(cesar_from_string)}")
 print(cesar_from_string)
 for garage in cesar_from_string.garages:
-    print(garage.car)                      # restored even cars from a Cesar's garage!!!
+    print(garage.cars)                      # restored even cars from a Cesar's garage!!!
 
 
 # Save condition of test_cesar in json file:
@@ -220,3 +220,94 @@ print(cesar_from_file)
 
 
 
+# 2. Pickle serialization.
+
+import pickle
+
+# 2.1. Class Car
+
+
+test_car_pickle = classes.Car(45000, 2000)
+
+# Conversion test_car_pickle to pickle:
+car_str_pickle = pickle.dumps(test_car_pickle)
+
+
+# Create Car object from pickle:
+
+car_from_pickle = pickle.loads(car_str_pickle)
+print(f"Type of restored Car: {type(car_from_pickle)}")
+print(car_from_pickle)
+
+
+# Save condition of test_car_pickle in file car_pickle.txt:
+
+with open("car_pickle.txt", "wb") as file:
+    pickle.dump(test_car_pickle, file)
+
+# Create Car object from file:
+with open("car_pickle.txt", "rb") as file:
+    car_from_pickle_file = pickle.load(file)
+print(f"Type of restored Car: {type(car_from_pickle_file)}")
+print(car_from_pickle_file)
+
+
+# 2.2. Class Garage
+
+
+test_garage_pickle = classes.Garage(90)
+test_garage.cars = [classes.Car(1000, 900000), classes.Car(10000, 50)]
+# Conversion test_garage to pickle:
+garage_str_pickle = pickle.dumps(test_garage_pickle)
+
+
+# Create garage object from pickle:
+
+garage_from_pickle = pickle.loads(garage_str_pickle)
+print(f"Type of restored Garage: {type(garage_from_pickle)}")
+print(garage_from_pickle)
+for car in garage_from_pickle.cars:
+    print(type(car), car)
+
+# Save condition of test_garage in file garage_pickle.txt:
+
+with open("garage_pickle.txt", "wb") as file:
+    pickle.dump(test_garage_pickle, file)
+
+# Create Garage object from file:
+with open("garage_pickle.txt", "rb") as file:
+    garage_from_pickle_file = pickle.load(file)
+print(f"Type of restored garage: {type(garage_from_pickle_file)}")
+print(garage_from_pickle_file)
+
+
+# 2.3. class Cesar:
+
+
+test_cesar_pickle = classes.Cesar("Olga")
+print(type(test_cesar_pickle))
+test_cesar_pickle.garages = [classes.Garage(80), test_garage]
+
+# Conversion test_cesar_pickle to pickle:
+cesar_str_pickle = pickle.dumps(test_cesar_pickle)
+print(cesar_str_pickle)
+
+# Create cesar object from pickle:
+
+cesar_from_pickle = pickle.loads(cesar_str_pickle)
+print(f"Type of restored Cesar: {type(cesar_from_pickle)}")
+print(cesar_from_pickle)
+for garage in cesar_from_pickle.garages:
+    print(garage.cars)                      # restored even cars from a Cesar's garage!!!
+
+
+# Save condition of test_cesar in json file:
+
+with open("cesar_pickle.txt", "wb") as file:
+    pickle.dump(test_cesar_pickle, file)
+
+# Create Cesar object from file:
+with open("cesar_pickle.txt", "rb") as file:
+    cesar_from_pickle_file = pickle.load(file)
+print(f"Type of restored cesar: {type(cesar_from_pickle_file)}")
+print(cesar_from_pickle_file)
