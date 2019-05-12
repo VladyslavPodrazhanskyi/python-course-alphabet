@@ -111,6 +111,9 @@ def to_json_garage(obj):
             "town": obj.town,
             "cars": obj.cars,
             "owner": obj.owner}
+    if obj.cars:
+        serialized_cars = [json.dumps(car, default=to_json_car) for car in obj.cars]
+        data["cars"] = serialized_cars
     return data
 
 def from_json_garage(data):
@@ -120,13 +123,17 @@ def from_json_garage(data):
     places = data["places"]
     garage_instance = classes.Garage(places)
     garage_instance.town = data.get("town", random.choice(constants.TOWNS))
-    garage_instance.cars = data.get("cars", [])
     garage_instance.owner = data.get("owner", None)
+    if data["cars"]:
+        restored_cars = [json.loads(car, object_hook=from_json_car) for car in data["cars"]]
+        garage_instance.cars = restored_cars
+    else:
+        garage_instance.cars = []
     return garage_instance
 
 
 test_garage = classes.Garage(500)
-
+test_garage.cars = [classes.Car(1000, 900000), classes.Car(10000, 50)]
 # Conversion test_garage to string:
 garage_str_json = json.dumps(test_garage, default=to_json_garage)
 print(garage_str_json)
@@ -136,7 +143,8 @@ print(garage_str_json)
 garage_from_string = json.loads(garage_str_json, object_hook=from_json_garage)
 print(f"Type of restored Garage: {type(garage_from_string)}")
 print(garage_from_string)
-
+for car in garage_from_string.cars:
+    print(type(car), car)
 
 # Save condition of test_garage in json file:
 
@@ -162,6 +170,9 @@ def to_json_cesar(obj):
         default method to serialize an instance of class Cesar to json
     '''
     data = {"name": obj.name, "garages": obj.garages, "register_id": obj.register_id}
+    if obj.garages:
+        serialized_garages = [json.dumps(garage, default=to_json_garage) for garage in obj.garages]
+        data["garages"] = serialized_garages
     return data
 
 def from_json_cesar(data):
@@ -170,13 +181,18 @@ def from_json_cesar(data):
     '''
     name = data["name"]
     cesar_instance = classes.Cesar(name)
-    cesar_instance.garages = data.get("garages", [])
     cesar_instance.register_id = data.get("register_id", str(uuid.uuid4()))
+    if data["garages"]:
+        restored_garages = [json.loads(garage, object_hook=from_json_garage) for garage in data["garages"]]
+        cesar_instance.garages = restored_garages
+    else:
+        cesar_instance.garages = []
     return cesar_instance
 
 
 test_cesar = classes.Cesar("Vladislav")
 print(type(test_cesar))
+test_cesar.garages = [classes.Garage(50), test_garage]
 
 # Conversion test_cesar to string:
 cesar_str_json = json.dumps(test_cesar, default=to_json_cesar)
@@ -187,6 +203,8 @@ print(cesar_str_json)
 cesar_from_string = json.loads(cesar_str_json, object_hook=from_json_cesar)
 print(f"Type of restored Cesar: {type(cesar_from_string)}")
 print(cesar_from_string)
+for garage in cesar_from_string.garages:
+    print(garage.car)                      # restored even cars from a Cesar's garage!!!
 
 
 # Save condition of test_cesar in json file:

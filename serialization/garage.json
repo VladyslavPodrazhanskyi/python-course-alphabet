@@ -1,1 +1,1 @@
-{"places": 500, "town": "Paris", "cars": [], "owner": null}
+{"places": 500, "town": "Rome", "cars": ["{\"price\": 1000, \"type\": \"Truck\", \"producer\": \"BMW\", \"number\": \"d8ad6bb2-4b76-46f5-aa34-1aa2fdaf2414\", \"mileage\": 900000}", "{\"price\": 10000, \"type\": \"Truck\", \"producer\": \"Dodge\", \"number\": \"6dea92b2-7160-4215-aa76-52ddc3094c08\", \"mileage\": 50}"], "owner": null}
