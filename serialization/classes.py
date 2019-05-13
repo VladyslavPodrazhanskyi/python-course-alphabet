@@ -217,7 +217,7 @@ class Cesar:
         cesar_instance = Cesar(name)
         cesar_instance.register_id = data.get("register_id", str(uuid.uuid4()))
         cesar_instance.garages = [Garage.from_dict_garage(garage) for garage in data["garages"]]
-        return garage_instance
+        return cesar_instance
 
     @staticmethod
     def to_dict_cesar(obj):
