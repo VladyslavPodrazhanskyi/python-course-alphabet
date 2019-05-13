@@ -78,7 +78,24 @@ class Car:
     def change_num(self):
         self.number = str(uuid.uuid4())
 
+    @classmethod
+    def from_dict_car(cls, data):
+        price = data["price"]
+        mileage = data["mileage"]
+        car_instance = Car(price, mileage)
+        car_instance.type = data.get("type", random.choice(constants.CARS_TYPES))
+        car_instance.producer = data.get("producer", random.choice(constants.CARS_PRODUCER))
+        car_instance.number = data.get("number", str(uuid.uuid4()))
+        return car_instance
 
+    @staticmethod
+    def to_dict_car(obj):
+        data = {"price": obj.price,
+                "type": obj.type,
+                "producer": obj.producer,
+                "number": obj.number,
+                "mileage": obj.mileage}
+        return data
 
 
 class Garage:
@@ -118,6 +135,22 @@ class Garage:
             total_cost += car.price
         return total_cost
 
+    @classmethod
+    def from_dict_garage(cls, data):
+        places = data["places"]
+        garage_instance = Garage(places)
+        garage_instance.town = data.get("town", random.choice(constants.TOWNS))
+        garage_instance.owner = data.get("owner", None)
+        garage_instance.cars = [Car.from_dict_car(car) for car in data["cars"]]
+        return garage_instance
+
+    @staticmethod
+    def to_dict_garage(obj):
+        data = {"places": obj.places,
+                "town": obj.town,
+                "owner": obj.owner}
+        data["cars"] = [Car.to_dict_car(car) for car in obj.cars]
+        return data
 
 class Cesar:
     def __init__(self, name:str):
@@ -177,4 +210,20 @@ class Cesar:
         return self.hit_hat() < other.hit_hat()
     def __gt__(self, other):
         return self.hit_hat() > other.hit_hat()
+
+    @classmethod
+    def from_dict_cesar(cls, data):
+        name = data["name"]
+        cesar_instance = Cesar(name)
+        cesar_instance.register_id = data.get("register_id", str(uuid.uuid4()))
+        cesar_instance.garages = [Garage.from_dict_garage(garage) for garage in data["garages"]]
+        return garage_instance
+
+    @staticmethod
+    def to_dict_cesar(obj):
+        data = {"name": obj.name, "garages": obj.garages, "register_id": obj.register_id}
+        data["garages"] = [Garage.to_dict_garage(garage) for garage in obj.garages]
+        return data
+
+
 
