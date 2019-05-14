@@ -79,7 +79,7 @@ class Car:
         self.number = str(uuid.uuid4())
 
     @classmethod
-    def from_dict_car(cls, data):
+    def from_dict(cls, data):
         price = data["price"]
         mileage = data["mileage"]
         car_instance = Car(price, mileage)
@@ -89,7 +89,7 @@ class Car:
         return car_instance
 
     @staticmethod
-    def to_dict_car(obj):
+    def to_dict(obj):
         data = {"price": obj.price,
                 "type": obj.type,
                 "producer": obj.producer,
@@ -136,20 +136,20 @@ class Garage:
         return total_cost
 
     @classmethod
-    def from_dict_garage(cls, data):
+    def from_dict(cls, data):
         places = data["places"]
         garage_instance = Garage(places)
         garage_instance.town = data.get("town", random.choice(constants.TOWNS))
         garage_instance.owner = data.get("owner", None)
-        garage_instance.cars = [Car.from_dict_car(car) for car in data["cars"]]
+        garage_instance.cars = [Car.from_dict(car) for car in data["cars"]]
         return garage_instance
 
     @staticmethod
-    def to_dict_garage(obj):
+    def to_dict(obj):
         data = {"places": obj.places,
                 "town": obj.town,
                 "owner": obj.owner}
-        data["cars"] = [Car.to_dict_car(car) for car in obj.cars]
+        data["cars"] = [Car.to_dict(car) for car in obj.cars]
         return data
 
 class Cesar:
@@ -212,17 +212,17 @@ class Cesar:
         return self.hit_hat() > other.hit_hat()
 
     @classmethod
-    def from_dict_cesar(cls, data):
+    def from_dict(cls, data):
         name = data["name"]
         cesar_instance = Cesar(name)
         cesar_instance.register_id = data.get("register_id", str(uuid.uuid4()))
-        cesar_instance.garages = [Garage.from_dict_garage(garage) for garage in data["garages"]]
+        cesar_instance.garages = [Garage.from_dict(garage) for garage in data["garages"]]
         return cesar_instance
 
     @staticmethod
-    def to_dict_cesar(obj):
+    def to_dict(obj):
         data = {"name": obj.name, "garages": obj.garages, "register_id": obj.register_id}
-        data["garages"] = [Garage.to_dict_garage(garage) for garage in obj.garages]
+        data["garages"] = [Garage.to_dict(garage) for garage in obj.garages]
         return data
 
 
