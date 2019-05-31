@@ -1,7 +1,8 @@
+{% from "macros.html" import nav_link with context %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flask Template Example</title>
+  <title>{% block title %}{{ title }}{% endblock %}</title>   {# отображается на вкладке в браузере #}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <style type="text/css">
@@ -26,6 +27,11 @@
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+  {{ nav_link('home', 'Home') }}
+  {{ nav_link('about', 'About') }}
+  {{ nav_link('contact', 'Contact Us') }}
+          </ul>
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Link</a></li>
           <li><a href="#">Link</a></li>

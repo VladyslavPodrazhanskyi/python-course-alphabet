@@ -1,4 +1,10 @@
 {% extends "layout.html" %} {# наследоваться и расширяться от файла layout.html #}
+{% block page %}{{ title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block heading %}
+    {{ super() }}
+{% endblock %}
+
 {% block content %}
     <h3>This is start of my child template</h3>
     {% block footer %}
