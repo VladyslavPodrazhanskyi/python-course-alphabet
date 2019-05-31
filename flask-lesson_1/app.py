@@ -1,18 +1,18 @@
 import os
-
+import uuid
 from flask import Flask, request, render_template, jsonify, make_response, abort, url_for, session
 from werkzeug.utils import secure_filename, redirect
 
-from .messenger.routes import messenger
+# from .messenger.routes import messenger
 
 app = Flask(__name__)
 
-app.register_blueprint(messenger)
+# app.register_blueprint(messenger)
 
 
 @app.route('/')
 def hello_world():
-    return 'Our first route'
+    return '<h1>Our first route</h1>'
 
 
 @app.route('/name/<int:index>')
@@ -36,13 +36,17 @@ def get_int_value(num):
         return f"I'm int value {num}"
 
 
+
+
+
+
 @app.route('/number/<num>')
 def get_number(num):
     if isinstance(num, str):
         return "Yes I'm string"
 
 
-@app.route('/path/<path:val>')
+@app.route('/path/<path:val>')   # path:subpath  , subpath/sub/fjhfjs/sfskkf/fskfj
 def get_path(val):
     return val
 
@@ -53,10 +57,12 @@ def get_data_from_file(val):
         return file.read()
 
 
+
 @app.route('/uuid/<uuid:val>')
 def get_uuid(val):
     print(type(val))
     return f"I'm uuid {val}"
+
 
 
 @app.route('/home')
@@ -69,20 +75,8 @@ def about_page():
     return render_template('about.html')
 
 
-@app.route('/request_object')
-def get_request_object():
-    client_name = request.headers.get("client_name")
-    args = request.args
-    base_url = request.base_url
 
-    response = dict()
-    response["client_name"] = client_name
-    response["args"] = args
-    response["base_url"] = base_url
-    return jsonify(response)
-
-
-test_methods_dict = ["Value 1", "Value 2"]
+test_methods_dict = ["Value 1", "Value 2"]  # мнимая база данных
 
 
 @app.route('/test_methods')
@@ -120,9 +114,25 @@ def do_delete(value):
     :param value:
     :return:
     """
-    for i, elem in enumerate(test_methods_dict):
+    for i, elem in enumerate(test_methods_dict):  # enumerate -  returns tupple list [(0, value1), (1, value2)]
         if elem == value:
             test_methods_dict.pop(i)
+
+
+
+
+@app.route('/request_object')
+def get_request_object():
+    client_name = request.headers.get("client_name")
+    args = request.args
+    base_url = request.base_url
+
+    response = dict()
+    response["client_name"] = client_name
+    response["args"] = args
+    response["base_url"] = base_url
+    return jsonify(response)
+
 
 
 @app.route("/file", methods=["POST"])
@@ -134,66 +144,66 @@ def save_file():
     with open(file_path) as file:
         return file.read()
 
-
-@app.route('/get_cookie')
-def get_cookie():
-    return jsonify(request.cookies)
-
-
-@app.route('/set_cookie', methods=["POST"])
-def set_cookie():
-    import json
-    response = make_response()
-    for key, value in json.loads(request.data).items():
-        response.set_cookie(key, value)  # not more then one value
-    return response
-
-
-@app.route("/test_redirect")
-def test_redirect():
-    return redirect(url_for("home_page"))
-
-
-@app.route("/test_abort")
-def test_abort():
-    abort(501, "Our program has an error")
-
-
-@app.errorhandler(501)
-def error_501_handler(error):
-    return render_template("error_501.html")
-
-
-@app.route("/search")
-def google():
-    search_query = request.args.get("query")
-
-    if not search_query:
-        abort(404)
-    if search_query == "avengers endgame":
-        # http://127.0.0.1:5000/search?query=avengers+endgame
-        return redirect("https://en.wikipedia.org/wiki/Avengers:_Endgame")
-    if search_query == "april joke":
-        # http://127.0.0.1:5000/search?query=april+joke
-        abort(418)
-    else:
-        return "Come on, google it"
-
-
-@app.errorhandler(418)
-def error_418_handler(error):
-    return render_template("error_418.html", error=error)
-
-
-app.secret_key = b'"\xaa;\x0b\x12\x8a\xa1V+\x16\xc5\x91\xfb,\xcb#'
-
-
-@app.route("/test_session")
-def test_session():
-    app.logger.warning("this is warning")
-    app.logger.error("This is error")
-    session["key"] = "value"
-    return "hello"
+#
+# @app.route('/get_cookie')
+# def get_cookie():
+#     return jsonify(request.cookies)
+#
+#
+# @app.route('/set_cookie', methods=["POST"])
+# def set_cookie():
+#     import json
+#     response = make_response()
+#     for key, value in json.loads(request.data).items():
+#         response.set_cookie(key, value)  # not more then one value
+#     return response
+#
+#
+# @app.route("/test_redirect")
+# def test_redirect():
+#     return redirect(url_for("home_page"))
+#
+#
+# @app.route("/test_abort")
+# def test_abort():
+#     abort(501, "Our program has an error")
+#
+#
+# @app.errorhandler(501)
+# def error_501_handler(error):
+#     return render_template("error_501.html")
+#
+#
+# @app.route("/search")
+# def google():
+#     search_query = request.args.get("query")
+#
+#     if not search_query:
+#         abort(404)
+#     if search_query == "avengers endgame":
+#         # http://127.0.0.1:5000/search?query=avengers+endgame
+#         return redirect("https://en.wikipedia.org/wiki/Avengers:_Endgame")
+#     if search_query == "april joke":
+#         # http://127.0.0.1:5000/search?query=april+joke
+#         abort(418)
+#     else:
+#         return "Come on, google it"
+#
+#
+# @app.errorhandler(418)
+# def error_418_handler(error):
+#     return render_template("error_418.html", error=error)
+#
+#
+# app.secret_key = b'"\xaa;\x0b\x12\x8a\xa1V+\x16\xc5\x91\xfb,\xcb#'
+#
+#
+# @app.route("/test_session")
+# def test_session():
+#     app.logger.warning("this is warning")
+#     app.logger.error("This is error")
+#     session["key"] = "value"
+#     return "hello"
 
 
 if __name__ == '__main__':
