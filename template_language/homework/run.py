@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 with open('movies.json') as f:
     MOVIES = json.load(f)
-
+for movie in MOVIES:
+    movie["year"] = int(movie["year"])
 
 @app.route('/')
 def home_page():
