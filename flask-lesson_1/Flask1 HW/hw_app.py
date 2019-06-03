@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, abort
+from werkzeug.utils import redirect
+
 
 app = Flask(__name__)
 
 
 vegetables_list = ['carrot', 'potato', 'cucumber', 'tomatto', 'beet', 'cabbage']
-
 fruites_list = ['apple', 'pair', 'plum', 'apricot', 'gooseberry', 'raspberry', 'cherry']
 
 
@@ -55,6 +56,21 @@ def fruites_methods(value=None):
         return do_get("fruites.html", fruites_list)
 
 
+
+# redirect from fish or meat to main page for vegans
+@app.route("/fish")
+@app.route("/meat")
+def redirect_to_main():
+    return redirect(url_for("get_main"))
+
+
+@app.route("/nuts")
+def get_abort():
+    abort(404)
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html")
 
 
 if __name__ == "__main__":
