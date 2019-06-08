@@ -21,20 +21,24 @@ class CalcTest(unittest.TestCase):
         """Set up for test"""
         print(f"Set up for [{self.shortDescription()}]")
 
-    def TearDown(self):
+    def tearDown(self):
         """Tear down for test"""
-        print(f"Tear down for [{self.shortDescription()}]")
+        print("Tear down ")
 
     def test_add(self):
+        """test_add"""
         self.assertEqual(calc.add(1, 2), 3)
 
     def test_sub(self):
+        """test_sub"""
         self.assertEqual(calc.sub(4, 2), 2)
 
     def test_mul(self):
+        """test_mul"""
         self.assertEqual(calc.mul(5, 2), 10)
 
     def test_div(self):
+        """test_div"""
         self.assertEqual(calc.div(8, 4), 2)
 
 
