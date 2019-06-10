@@ -1,0 +1,81 @@
+1) app.py -  файл с основным приложением.
+
+from flask import Flask
+
+
+app =  Flask(__name__)
+
+
+
+2) Cоздаем python package директория ( в ней  по умолчанию файл __init__.py) - trees
+из файла __init__.py происходит импорт модулей по умолчанию,
+сли прописана папка в которой лежить данный файл.
+
+
+
+3) В файле __init__.py
+
+
+ 3.1. создаем Blueprint и инициализируем его.
+
+ from flask import Blueprint
+
+trees = Blueprint("trees", __name__)
+
+
+ 3.2. Регистрируем Blueprin in Rest API:
+
+from flask_restful import Api
+api = Api(trees)
+
+ в Api мы передаем не app, а blueprint  -  trees.
+
+
+4. Cоздаем файл main.py. и в нем будут прописываться классы, кот. наследуются от Resource,
+в котором уже есть метод get, post, delete ...( вместо view_functions in flask).
+
+ Создаем класс Main(Resource)
+
+
+from flask_restful import Resource
+
+class Main(Resource):
+    def get(self):
+        return "Hello from main"
+
+5. В файл __init__.py импортируем наши классы ( в данном случае Main).
+
+from app_blueprint.trees.main import Main
+
+присваиваем данному классу соответствующие url адреса.
+в данном случае "/"
+
+api.add_resource(Main, "/")
+
+
+6. Регистрация данного Blueprint в приложении ( файл app.py).
+
+импорт блупринта ( кот. содержиться в файле __init__.py)
+
+from app_blueprint.trees import trees
+
+регистрация блупринта:
+
+app.register_blueprint(trees)
+
+
+Таким образом мы имее слудующую структуру приложения:
+
+app.py  -  содержит код приложения, импорт блупринтов, их регистрацию и запуск приложения
+при запуске файла.
+
+папки блупринтов:
+
+Каждая папка содержит:
+
+__init__.py -  содержит описание данного блупринта
+обертывает его через Api, импортирует классы с функциями обработки запросов.
+
+связывает класс с url адресами.
+
+файлы описание классов, наслед. от Resource, кот. содержат функции обработки запросов.
