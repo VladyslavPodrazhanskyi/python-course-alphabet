@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # Lets see how json like string will look like
     json_formatted_str = json.dumps(DATA)
     print("JSON formatted string")
-    print(type(json_formatted_str), json_formatted_str)
+    print(type(json_formatted_str), json_formatted_str, sep="\n")
     print_separator()
 
     restored_data = eval(json_formatted_str)
@@ -63,7 +63,9 @@ if __name__ == "__main__":
         data_as_string = json.dumps(data_2)
     except TypeError as e:
         print(e)
-    #
+    # TypeError: Object of type set is not JSON serializable
+
+
     try:
         data_as_string = json.dumps(data_2, cls=JsonEncoder)
     except TypeError as e:
