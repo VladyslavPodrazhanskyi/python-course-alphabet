@@ -259,7 +259,7 @@ class House:
     """
     !!!! DON'T WRITE NEW METHODS TO THIS CLASS EXCEPT FOR THOSE LISTED BELOW !!!
 
-    * Add super private variable __walls and its value will be empty list
+    * Add super private variable __walls and its value will be empty list  методы класса!!!
     * Add super private variable __windows and its value will be empty list
     * Add super private variable __roof and its value will be None
     * Add super private variable __door and its value will be None
