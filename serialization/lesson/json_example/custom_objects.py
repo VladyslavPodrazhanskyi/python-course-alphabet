@@ -31,18 +31,18 @@ class Programmer:
         return data
 
 
-def from_json(data):
-    name = data['name']
-    language = data['language']
-    position = data['position']
-    pr = Programmer(name=name, language=language, position=position)
-    pr.enough_coffee = data.get('enough_coffee', False)
-    return pr
-
-
-def to_json(obj: Programmer):
-    data = {"name": obj.name, "language": obj.language, "position": obj.position}
-    return data
+# def from_json(data):
+#     name = data['name']
+#     language = data['language']
+#     position = data['position']
+#     pr = Programmer(name=name, language=language, position=position)
+#     pr.enough_coffee = data.get('enough_coffee', False)
+#     return pr
+#
+#
+# def to_json(obj: Programmer):
+#     data = {"name": obj.name, "language": obj.language, "position": obj.position}
+#     return data
 
 
 if __name__ == "__main__":
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     # # Should work fine. Use custom json decoder
     try:
-        ser_pr = json.dumps(programmer, default=to_json)
+        ser_pr = json.dumps(programmer, default=Programmer.to_json)
         print("Success")
         print(type(ser_pr), ser_pr)
     except TypeError as e:
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     #
     # # Should works fine. Use custom hook
     try:
-        load_pr = json.loads(ser_pr, object_hook=from_json)
+        load_pr = json.loads(ser_pr, object_hook=Programmer.from_json)
         print("Look here we have our programmer")
         print(type(load_pr), load_pr)
         print(load_pr.name)

@@ -13,12 +13,13 @@ class Programmer:
     def __str__(self):
         return f"Programmer. Name: {self.name}." \
             f"Lang :{self.language}; Position: {self.position} developer"
-
-    # def __setstate__(self, state):
-    #     self.__dict__ = state
-    #
-    # def __getstate__(self):
-    #     return self.__dict__
+# setstate and getstate сейчас установлены по дефолту и никак не воздействуют на код.
+# setstate испльзуется для десериализации.
+    def __setstate__(self, state):    # принимает состояние объекта как словарь для воостановления объекта
+        self.__dict__ = state
+# getstat используется для сериализации (принимает объект, возвращает словарь с параметрами, кот будет превращен в байт
+    def __getstate__(self):
+        return self.__dict__
 
 
 if __name__ == "__main__":
@@ -31,4 +32,4 @@ if __name__ == "__main__":
     # Lets load it
     with open("data.txt", "rb") as file:
         restore_obj = pickle.load(file)
-        print(restore_obj)
+        print(type(restore_obj))
