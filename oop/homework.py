@@ -13,7 +13,7 @@ class Cat:
 
     * Implement method eat which will receive from user product value
       if product eq fodder use _increase_saturation_level with value eq 10
-      if product eq apple use _increase_saturation_level with value eq 5
+      if product eq apple use _in   `crease_saturation_level with value eq 5
       if product eq milk use _increase_saturation_level with value eq 2
 
     * Implement private method _set_average_speed
@@ -43,21 +43,21 @@ class Cat:
         self.average_speed = self._set_average_speed()
         self.saturation_level = 50
 
-    def _increase_saturation_level(self, value):
-        self.saturation_level += value
+
+    def __corrected_saturation_level(self):
         if self.saturation_level > 100:
             self.saturation_level = 100
-        if self.saturation_level < 0:
+        elif self.saturation_level < 0:
             self.saturation_level = 0
         return self.saturation_level
 
+    def _increase_saturation_level(self, value):
+        self.saturation_level += value
+        return self.__corrected_saturation_level()
+
     def _reduce_saturation_level(self, value):
         self.saturation_level -= value
-        if self.saturation_level > 100:
-            self.saturation_level = 100
-        if self.saturation_level < 0:
-            self.saturation_level = 0
-        return self.saturation_level
+        return self.__corrected_saturation_level()
 
     def eat(self, product):
         if product  == "fodder":
