@@ -1,0 +1,8 @@
+cars:
+- {mileage: 900000, number: d97e844b-7081-40bd-82e3-419b276011af, price: 1000, producer: Chevrolet,
+  type: Wagon}
+- {mileage: 50, number: f335cebd-9d11-42ea-8a12-bcce98a1f531, price: 10000, producer: BENTLEY,
+  type: Wagon}
+owner: null
+places: 500
+town: Rome

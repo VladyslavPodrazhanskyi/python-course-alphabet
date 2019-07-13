@@ -1,0 +1,15 @@
+garages:
+- cars: []
+  owner: null
+  places: 11
+  town: Kiev
+- cars:
+  - {mileage: 9080000, number: 6d3cf9a8-2592-4dba-b3b7-b8861af8a5c0, price: 1300,
+    producer: BMW, type: Crossover}
+  - {mileage: 0, number: 1919bf90-a803-4f47-add1-e5245833f5e6, price: 100000, producer: Dodge,
+    type: Crossover}
+  owner: null
+  places: 70
+  town: Kiev
+name: Leopold
+register_id: f783c242-5d38-498a-aead-7eca3413d643
